@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace NeuralNetworks.ViewModel
 {
-    public abstract class BaseViewModel<M> : INotifyPropertyChanged where M : BaseView
+    public abstract class BaseViewModel<M> : INotifyPropertyChanged where M : IBaseView
     {
         private string title;
         protected M View;

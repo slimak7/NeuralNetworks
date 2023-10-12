@@ -6,8 +6,16 @@ using System.Threading.Tasks;
 
 namespace NeuralNetworks.Model
 {
-    public class BaseLayer
+    public abstract class BaseLayer
     {
+        public string Name { get; set; }
 
+        protected BaseLayer(string name)
+        {
+            Name = name;
+        }
+
+        public abstract List<double> CalculateOutput(List<double> input);
+        public abstract LayerOptions.LayerType GetLayerType();
     }
 }

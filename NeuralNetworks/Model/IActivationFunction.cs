@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NeuralNetworks.View
+namespace NeuralNetworks.Model
 {
-    public interface BaseView
+    public interface IActivationFunction
     {
+        double CalculateOutput(double value);
     }
 }

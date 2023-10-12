@@ -18,7 +18,7 @@ namespace NeuralNetworks.View.Windows
     /// <summary>
     /// Interaction logic for Window1.xaml
     /// </summary>
-    public partial class MenuWindow : Window, BaseView
+    public partial class MenuWindow : Window, IBaseView
     {
         private MenuWindowViewModel MenuWindowViewModel;
         public MenuWindow()
