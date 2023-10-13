@@ -12,10 +12,12 @@ namespace NeuralNetworks.Model
 
         public List<Neuron> Neurons { get => neurons; set => neurons = value; }
 
-        public NeuronLayer(List<Neuron> neurons, string name) : base(name)
+        public NeuronLayer(List<Neuron> neurons, string name, bool isFirst = false, bool isLast = false) : base(name, isFirst, isLast)
         {
             Neurons = neurons;
         }
+
+        
 
         public Neuron this[int index]
         {
