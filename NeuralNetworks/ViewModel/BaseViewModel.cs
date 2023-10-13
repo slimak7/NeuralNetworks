@@ -24,13 +24,11 @@ namespace NeuralNetworks.ViewModel
             View = view;
         }
 
-        public void OnPropertyChanged([CallerMemberName] string name = null) =>
-           PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
 
-        public void SetProperty<T>(ref T property, T value)
+        public void SetProperty<T>(ref T property, T value, [CallerMemberName] string name = null)
         {
             property = value;
-            OnPropertyChanged();
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
     }

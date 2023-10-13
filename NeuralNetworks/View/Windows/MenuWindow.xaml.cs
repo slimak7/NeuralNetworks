@@ -27,6 +27,13 @@ namespace NeuralNetworks.View.Windows
             DataContext = MenuWindowViewModel;
 
             InitializeComponent();
+
+            EnableDeleteButton(false);
+        }
+
+        public void EnableDeleteButton(bool enable)
+        {
+            DeleteLayerButton.IsEnabled = enable;
         }
     }
 }

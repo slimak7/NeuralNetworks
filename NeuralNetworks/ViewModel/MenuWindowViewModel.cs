@@ -36,6 +36,7 @@ namespace NeuralNetworks.ViewModel
                 }
 
                 IsDeleteEnabled = SelectedLayer != null;
+                View.EnableDeleteButton(IsDeleteEnabled);
             }
         }
         public NeuronLayer SelectedNeuronLayer { get => selectedNeuronLayer; set => SetProperty(ref selectedNeuronLayer, value); }
@@ -60,14 +61,30 @@ namespace NeuralNetworks.ViewModel
 
         private void CreateNewNeuronLayer()
         {
+         
+            if (selectedNeuronLayer == null)
+            {
+                Layers.Add(new NeuronLayer(new List<Neuron>(), "Neuron layer " + neuronLayerNumber));
+            }
+            else
+            {
+                Layers.Insert(Layers.IndexOf(SelectedLayer) + 1, new NeuronLayer(new List<Neuron>(), "Neuron layer " + neuronLayerNumber));
+            }
             
-            Layers.Add(new NeuronLayer(new List<Neuron>(), "Neuron layer " + neuronLayerNumber));
             neuronLayerNumber++;
         }
 
         private void CreateNewActivationLayer()
         {
-            Layers.Add(new ActivationLayer(new SigmoidFunction(), "Activation layer " + activationLayerNumber));
+            if (SelectedLayer == null)
+            {
+                Layers.Add(new ActivationLayer(new SigmoidFunction(), "Activation layer " + activationLayerNumber));
+            }
+            else
+            {
+                Layers.Insert(Layers.IndexOf(SelectedLayer) + 1, new ActivationLayer(new SigmoidFunction(), "Activation layer " + activationLayerNumber));
+            }
+            
             activationLayerNumber++;
         }
 
@@ -80,8 +97,20 @@ namespace NeuralNetworks.ViewModel
         {
             if (SelectedLayer != null)
             {
+                var index = Layers.IndexOf(SelectedLayer);
                 Layers.Remove(SelectedLayer);
-                SelectedLayer = null;           
+                if (Layers.Any())
+                {
+                    SelectedLayer = Layers[index + 1 >= Layers.Count ? Layers.Count - 1 : index];
+                }
+                else
+                {
+                    SelectedLayer = null;
+                    SelectedNeuronLayer = null;
+                    SelectedActivationLayer = null;
+                    activationLayerNumber = neuronLayerNumber = 1;
+                }
+                     
             }
         }
     }
