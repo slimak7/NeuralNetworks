@@ -1,4 +1,5 @@
-﻿using NeuralNetworks.ViewModel;
+﻿using NeuralNetworks.Model;
+using NeuralNetworks.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,12 +29,19 @@ namespace NeuralNetworks.View.Windows
 
             InitializeComponent();
 
-            EnableDeleteButton(false);
+            EnableDeleteSettingsButton(false);
         }
 
-        public void EnableDeleteButton(bool enable)
+        public void EnableDeleteSettingsButton(bool enable)
         {
             DeleteLayerButton.IsEnabled = enable;
+            LayerSettingsButton.IsEnabled = enable;
+        }
+
+        public void OpenLayerSettingsWindow(BaseLayer selectedLayer)
+        {
+            LayerSettingsWindow layerSettingsWindow = new LayerSettingsWindow(selectedLayer);
+            layerSettingsWindow.ShowDialog();
         }
     }
 }

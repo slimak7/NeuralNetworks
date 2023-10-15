@@ -19,6 +19,7 @@
                 <Button Height="Auto" Width="Auto" Background="#FF58B780" Margin="5" Command="{Binding CreateNewNeuronLayerCommand}">New neuron layer</Button>
                 <Button Height="Auto" Width="Auto" Background="#FF3D9BB5" Margin="5" Command="{Binding CreateNewActivationLayerCommand}">New activation layer</Button>
                 <Button x:Name="DeleteLayerButton" Height="Auto" Width="Auto" Background="#FFF34A11" Margin="5" Command="{Binding DeleteLayerCommand}">Delete layer</Button>
+                <Button x:Name="LayerSettingsButton" Height="Auto" Width="Auto" Background="#FF7233CE" Margin="5" Command="{Binding ShowLayerSettingsCommand}">Layer settings</Button>
             </StackPanel>
             <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
                 <ListView x:Name="LayersList" SelectedItem="{Binding SelectedLayer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MaxWidth="500" HorizontalAlignment="Left" ItemsSource="{Binding Layers}" BorderThickness="0" Background="#FF828A8D">

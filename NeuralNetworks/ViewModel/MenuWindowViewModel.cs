@@ -17,6 +17,7 @@ namespace NeuralNetworks.ViewModel
         public ICommand CreateNewActivationLayerCommand { get;set; }
         public ICommand SelectLayerCommand { get; set; }
         public ICommand DeleteLayerCommand { get; set; }
+        public ICommand ShowLayerSettingsCommand { get; set; }
 
         public ObservableCollection<BaseLayer> Layers { get; set; }
         public BaseLayer SelectedLayer { get => selectedLayer; 
@@ -36,7 +37,7 @@ namespace NeuralNetworks.ViewModel
                 }
 
                 IsDeleteEnabled = SelectedLayer != null;
-                View.EnableDeleteButton(IsDeleteEnabled);
+                View.EnableDeleteSettingsButton(IsDeleteEnabled);
             }
         }
         public NeuronLayer SelectedNeuronLayer { get => selectedNeuronLayer; set => SetProperty(ref selectedNeuronLayer, value); }
@@ -57,6 +58,7 @@ namespace NeuralNetworks.ViewModel
             CreateNewActivationLayerCommand = new RelayCommand(CreateNewActivationLayer);
             SelectLayerCommand = new RelayCommand(SelectLayer);
             DeleteLayerCommand = new RelayCommand(DeleteLayer);
+            ShowLayerSettingsCommand = new RelayCommand(ShowLayerSettings);
         }
 
         private void CreateNewNeuronLayer()
@@ -112,6 +114,11 @@ namespace NeuralNetworks.ViewModel
                 }
                      
             }
+        }
+
+        private void ShowLayerSettings()
+        {
+            View.OpenLayerSettingsWindow(SelectedLayer);
         }
     }
 }

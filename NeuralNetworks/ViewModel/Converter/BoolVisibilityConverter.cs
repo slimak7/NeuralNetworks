@@ -10,28 +10,31 @@ using System.Windows.Data;
 namespace NeuralNetworks.ViewModel.Converter
 {
     class BoolVisibilityConverter : IValueConverter
-{
-    public object Convert(object value, Type targetType,
-    object parameter, CultureInfo culture)
     {
-        var booool = (bool)value;
-        if (booool == false)
-            return Visibility.Collapsed;
-        else
-            return Visibility.Visible;
-
-    }
-
-    public object ConvertBack(object value, Type targetType,
+        public object Convert(object value, Type targetType,
         object parameter, CultureInfo culture)
-    {
-        if (value is Visibility && (Visibility)value == Visibility.Visible)
         {
-            return true;
+            if (value is bool boolValue && boolValue) 
+            {
+                return Visibility.Visible; 
+            }
+            else
+            {
+                return Visibility.Collapsed;
+            }
+
         }
-        return false;
+
+        public object ConvertBack(object value, Type targetType,
+            object parameter, CultureInfo culture)
+        {
+            if (value is Visibility visibility && visibility == Visibility.Visible)
+            {
+                return true;
+            }
+            return false;
+        }
     }
-}
-    
-    
+
+
 }

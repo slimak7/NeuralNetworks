@@ -1,0 +1,46 @@
+﻿<Window x:Class="NeuralNetworks.View.Windows.LayerSettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:converter="clr-namespace:NeuralNetworks.ViewModel.Converter"
+        xmlns:local="clr-namespace:NeuralNetworks.ViewModel" 
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        d:DataContext="{d:DesignInstance Type=local:LayerSettingsViewModel}"
+        mc:Ignorable="d"
+        Title="{Binding Title}" Height="450" Width="800">
+    <Window.Resources>
+        <converter:BoolVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    </Window.Resources>
+    <Grid>
+        <StackPanel Orientation="Vertical" VerticalAlignment="Top">
+            <Label FontSize="25" Content="{Binding BaseLayer.Name}"></Label>
+            <StackPanel x:Name="NeuronsOptionsPanel" Orientation="Horizontal" MinWidth="800" Visibility="{Binding ShowNeuronsOptions, Converter={StaticResource BoolToVisibilityConverter}}">
+                <Grid>
+                    <StackPanel HorizontalAlignment="Left" MinWidth="500">
+                        <ListView x:Name="LayersList" SelectedItem="{Binding SelectedNeuron, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MaxWidth="500" HorizontalAlignment="Left" ItemsSource="{Binding Neurons}" BorderThickness="0" Background="#FF828A8D">
+                            <ListView.ItemTemplate>
+                                <DataTemplate DataType="model:BaseLayer">
+                                    <StackPanel Orientation="Vertical" Margin="5" Background="Silver">
+                                        <Label Content="Neuron"></Label>
+                                        <CheckBox IsChecked="{Binding HasBias, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Content="Has bias"></CheckBox>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Right">
+                        <Button Content="New neuron" Command="{Binding AddNewNeuronCommand}" Margin="5"></Button>
+                        <Button x:Name="DeleteNeuronButton" Content="Delete neuron" Command="{Binding DeleteNeuronCommand}" Margin="5" Background="#FFD62E2E"></Button>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+            <StackPanel x:Name="ActivationOptionsPanel" Orientation="Horizontal" HorizontalAlignment="Center" Visibility="{Binding ShowActivationOptions, Converter={StaticResource BoolToVisibilityConverter}}">
+                <ComboBox ItemsSource="{Binding ActivationFunctionsOptions}" SelectedIndex="{Binding SelectedFunctionIndex, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></ComboBox>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+            <Button Content="Save and close" Command="{Binding SaveAndCloseCommand}" Margin="5" Background="#FF3AB40E"></Button>
+        </StackPanel>
+    </Grid>
+</Window>
