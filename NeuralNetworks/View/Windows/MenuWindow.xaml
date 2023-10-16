@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:NeuralNetworks.ViewModel" d:DataContext="{d:DesignInstance Type=local:MenuWindowViewModel}"
+        xmlns:local="clr-namespace:NeuralNetworks.ViewModel" 
+        d:DataContext="{d:DesignInstance Type=local:MenuWindowViewModel}"
         xmlns:model="clr-namespace:NeuralNetworks.Model" 
         xmlns:converter="clr-namespace:NeuralNetworks.ViewModel.Converter"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
@@ -40,7 +41,7 @@
             </ListView>
         </StackPanel>
         <StackPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button Content="Set data and train" Width="Auto" Background="#FFB5DD2C" Margin="5"></Button>
+            <Button Content="Set data and train" Width="Auto" Background="#FFB5DD2C" Margin="5" Command="{Binding TrainNeuralNetworkCommand}"></Button>
         </StackPanel>
     </Grid>
 </Window>

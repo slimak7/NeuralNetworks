@@ -43,10 +43,6 @@ namespace NeuralNetworks.View.Windows
             LayerSettingsButton.IsEnabled = enable;
         }
 
-        public void OpenLayerSettingsWindow(BaseLayer selectedLayer)
-        {
-            LayerSettingsWindow layerSettingsWindow = new LayerSettingsWindow(selectedLayer);
-            layerSettingsWindow.ShowDialog();
-        }
+        
     }
 }

@@ -18,6 +18,7 @@ namespace NeuralNetworks.ViewModel
         public ICommand SelectLayerCommand { get; set; }
         public ICommand DeleteLayerCommand { get; set; }
         public ICommand ShowLayerSettingsCommand { get; set; }
+        public ICommand TrainNeuralNetworkCommand { get; set; }
 
         public ObservableCollection<BaseLayer> Layers { get; set; }
         public BaseLayer SelectedLayer { get => selectedLayer; 
@@ -59,6 +60,7 @@ namespace NeuralNetworks.ViewModel
             SelectLayerCommand = new RelayCommand(SelectLayer);
             DeleteLayerCommand = new RelayCommand(DeleteLayer);
             ShowLayerSettingsCommand = new RelayCommand(ShowLayerSettings);
+            TrainNeuralNetworkCommand = new RelayCommand(TrainNeuralNetwork);
         }
 
         private void CreateNewNeuronLayer()
@@ -119,7 +121,14 @@ namespace NeuralNetworks.ViewModel
 
         private void ShowLayerSettings()
         {
-            View.OpenLayerSettingsWindow(SelectedLayer);
+            LayerSettingsWindow layerSettingsWindow = new LayerSettingsWindow(SelectedLayer);
+            layerSettingsWindow.ShowDialog();
+        }
+
+        private void TrainNeuralNetwork()
+        {
+            NetworkTrainingWindow networkTrainingWindow = new NetworkTrainingWindow(Layers.ToList());
+            networkTrainingWindow.ShowDialog();
         }
     }
 }
