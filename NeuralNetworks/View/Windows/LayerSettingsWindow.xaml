@@ -17,8 +17,15 @@
             <Label FontSize="25" Content="{Binding BaseLayer.Name}"></Label>
             <StackPanel x:Name="NeuronsOptionsPanel" Orientation="Horizontal" MinWidth="800" Visibility="{Binding ShowNeuronsOptions, Converter={StaticResource BoolToVisibilityConverter}}">
                 <Grid>
-                    <StackPanel HorizontalAlignment="Left" MinWidth="500">
-                        <ListView x:Name="LayersList" SelectedItem="{Binding SelectedNeuron, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MaxWidth="500" HorizontalAlignment="Left" ItemsSource="{Binding Neurons}" BorderThickness="0" Background="#FF828A8D">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="500"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" MaxHeight="400"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <ScrollViewer HorizontalAlignment="Center" CanContentScroll="True" VerticalScrollBarVisibility="Visible" Grid.Column="0" MaxHeight="350">
+                        <ListView x:Name="LayersList" SelectedItem="{Binding SelectedNeuron, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" ItemsSource="{Binding Neurons}" BorderThickness="0" Background="#FF828A8D">
                             <ListView.ItemTemplate>
                                 <DataTemplate DataType="model:BaseLayer">
                                     <StackPanel Orientation="Vertical" Margin="5" Background="Silver">
@@ -28,8 +35,8 @@
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                         </ListView>
-                    </StackPanel>
-                    <StackPanel Orientation="Vertical" HorizontalAlignment="Right">
+                    </ScrollViewer>
+                    <StackPanel Orientation="Vertical" Grid.Column="1">
                         <Button Content="New neuron" Command="{Binding AddNewNeuronCommand}" Margin="5"></Button>
                         <Button x:Name="DeleteNeuronButton" Content="Delete neuron" Command="{Binding DeleteNeuronCommand}" Margin="5" Background="#FFD62E2E"></Button>
                     </StackPanel>

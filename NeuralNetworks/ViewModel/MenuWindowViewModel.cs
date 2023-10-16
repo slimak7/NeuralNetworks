@@ -36,8 +36,9 @@ namespace NeuralNetworks.ViewModel
                     SelectedActivationLayer = selectedLayer as ActivationLayer;
                 }
 
-                IsDeleteEnabled = SelectedLayer != null;
-                View.EnableDeleteSettingsButton(IsDeleteEnabled);
+                IsDeleteEnabled = SelectedLayer != null && !(SelectedLayer is ActivationLayer);
+                View.EnableDeleteButton(IsDeleteEnabled);
+                View.EnableSettingsButton(SelectedLayer != null);
             }
         }
         public NeuronLayer SelectedNeuronLayer { get => selectedNeuronLayer; set => SetProperty(ref selectedNeuronLayer, value); }
@@ -49,7 +50,6 @@ namespace NeuralNetworks.ViewModel
         private NeuronLayer selectedNeuronLayer;
         private BaseLayer selectedLayer;
         private int neuronLayerNumber = 1;
-        private int activationLayerNumber = 1;
 
         public MenuWindowViewModel(string title, MenuWindow view) : base(title, view)
         {
@@ -63,8 +63,12 @@ namespace NeuralNetworks.ViewModel
 
         private void CreateNewNeuronLayer()
         {
+            if (!Layers.Any()) 
+            {
+                CreateNewActivationLayer();
+            }
          
-            if (selectedNeuronLayer == null)
+            if (SelectedLayer == null)
             {
                 Layers.Add(new NeuronLayer(new List<Neuron>(), "Neuron layer " + neuronLayerNumber));
             }
@@ -77,17 +81,8 @@ namespace NeuralNetworks.ViewModel
         }
 
         private void CreateNewActivationLayer()
-        {
-            if (SelectedLayer == null)
-            {
-                Layers.Add(new ActivationLayer(new SigmoidFunction(), "Activation layer " + activationLayerNumber));
-            }
-            else
-            {
-                Layers.Insert(Layers.IndexOf(SelectedLayer) + 1, new ActivationLayer(new SigmoidFunction(), "Activation layer " + activationLayerNumber));
-            }
-            
-            activationLayerNumber++;
+        {    
+            Layers.Add(new ActivationLayer(new SigmoidFunction(), "Activation layer (for each neuron layer)"));       
         }
 
         private void SelectLayer()
@@ -97,10 +92,16 @@ namespace NeuralNetworks.ViewModel
 
         private void DeleteLayer()
         {
-            if (SelectedLayer != null)
+            if (SelectedLayer != null && !(SelectedLayer is ActivationLayer))
             {
                 var index = Layers.IndexOf(SelectedLayer);
                 Layers.Remove(SelectedLayer);
+
+                if (Layers.Count == 1)
+                {
+                    Layers.Clear();
+                }
+
                 if (Layers.Any())
                 {
                     SelectedLayer = Layers[index + 1 >= Layers.Count ? Layers.Count - 1 : index];
@@ -110,7 +111,7 @@ namespace NeuralNetworks.ViewModel
                     SelectedLayer = null;
                     SelectedNeuronLayer = null;
                     SelectedActivationLayer = null;
-                    activationLayerNumber = neuronLayerNumber = 1;
+                    neuronLayerNumber = 1;
                 }
                      
             }

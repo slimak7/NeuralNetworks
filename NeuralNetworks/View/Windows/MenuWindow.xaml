@@ -13,30 +13,34 @@
         <converter:BoolVisibilityConverter x:Key="BoolToVisibilityConverter" />
     </Window.Resources>
     <Grid>
-
-        <StackPanel Orientation="Vertical">
-            <StackPanel Orientation="Horizontal" MaxHeight="40" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="5">
-                <Button Height="Auto" Width="Auto" Background="#FF58B780" Margin="5" Command="{Binding CreateNewNeuronLayerCommand}">New neuron layer</Button>
-                <Button Height="Auto" Width="Auto" Background="#FF3D9BB5" Margin="5" Command="{Binding CreateNewActivationLayerCommand}">New activation layer</Button>
-                <Button x:Name="DeleteLayerButton" Height="Auto" Width="Auto" Background="#FFF34A11" Margin="5" Command="{Binding DeleteLayerCommand}">Delete layer</Button>
-                <Button x:Name="LayerSettingsButton" Height="Auto" Width="Auto" Background="#FF7233CE" Margin="5" Command="{Binding ShowLayerSettingsCommand}">Layer settings</Button>
-            </StackPanel>
-            <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-                <ListView x:Name="LayersList" SelectedItem="{Binding SelectedLayer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MaxWidth="500" HorizontalAlignment="Left" ItemsSource="{Binding Layers}" BorderThickness="0" Background="#FF828A8D">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="SelectionChanged">
-                            <i:InvokeCommandAction Command="{Binding SelectLayerCommand}"></i:InvokeCommandAction>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                    <ListView.ItemTemplate>
-                        <DataTemplate DataType="model:BaseLayer">
-                            <StackPanel Orientation="Vertical" Margin="5" Background="Silver">
-                                <TextBlock Text="{Binding Name}"></TextBlock>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </StackPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" MaxHeight="40"></RowDefinition>
+            <RowDefinition Height="340"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" MaxHeight="40" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="5" Grid.Row="0">
+            <Button Height="Auto" Width="Auto" Background="#FF58B780" Margin="5" Command="{Binding CreateNewNeuronLayerCommand}">New neuron layer</Button>
+            <Button x:Name="DeleteLayerButton" Height="Auto" Width="Auto" Background="#FFF34A11" Margin="5" Command="{Binding DeleteLayerCommand}">Delete layer</Button>
+            <Button x:Name="LayerSettingsButton" Height="Auto" Width="Auto" Background="#FF7233CE" Margin="5" Command="{Binding ShowLayerSettingsCommand}">Layer settings</Button>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="1">
+            <ListView x:Name="LayersList" SelectedItem="{Binding SelectedLayer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" ItemsSource="{Binding Layers}" BorderThickness="0" Background="#FF828A8D">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding SelectLayerCommand}"></i:InvokeCommandAction>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <ListView.ItemTemplate>
+                    <DataTemplate DataType="model:BaseLayer">
+                        <StackPanel Orientation="Vertical" Margin="5" Background="Silver">
+                            <TextBlock Text="{Binding Name}"></TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
+        <StackPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button Content="Set data and train" Width="Auto" Background="#FFB5DD2C" Margin="5"></Button>
         </StackPanel>
     </Grid>
 </Window>

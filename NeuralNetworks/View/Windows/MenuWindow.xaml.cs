@@ -29,12 +29,17 @@ namespace NeuralNetworks.View.Windows
 
             InitializeComponent();
 
-            EnableDeleteSettingsButton(false);
+            EnableDeleteButton(false);
+            EnableSettingsButton(false);
         }
 
-        public void EnableDeleteSettingsButton(bool enable)
+        public void EnableDeleteButton(bool enable)
         {
-            DeleteLayerButton.IsEnabled = enable;
+            DeleteLayerButton.IsEnabled = enable;          
+        }
+
+        public void EnableSettingsButton(bool enable)
+        {
             LayerSettingsButton.IsEnabled = enable;
         }
 
