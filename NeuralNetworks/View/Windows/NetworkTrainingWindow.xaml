@@ -4,16 +4,23 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NeuralNetworks.ViewModel"
+        xmlns:converter="clr-namespace:NeuralNetworks.ViewModel.Converter"
         d:DataContext="{d:DesignInstance Type=local:NetworkTrainingViewModel}"
         mc:Ignorable="d"
         Title="NetworkTraining" Height="450" Width="800">
+    <Window.Resources>
+        <converter:IntStringConverter x:Key="IntStringConverter"></converter:IntStringConverter>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Center">
             <Label Content="Select training data file"></Label>
-            <Button Content="Select"></Button>
+            <Button Content="Select" Command="{Binding LoadTrainingDataCommand}"></Button>
+            <Label Content="Set number of rounds:"></Label>
+            <TextBox MinWidth="100" FontSize="15" Text="{Binding NumberOfRounds, Converter={StaticResource IntStringConverter}}"></TextBox>
+            <Button x:Name="StartTrainingButton" Margin="5" Content="Start training" Command="{Binding StartTrainingCommand}" Background="#FF92F01E"></Button>
         </StackPanel>
     </Grid>
 </Window>

@@ -29,5 +29,10 @@ namespace NeuralNetworks.View.Windows
 
             InitializeComponent();
         }
+
+        public void EnableStartTrainingButton(bool enableTrainingButton)
+        {
+            StartTrainingButton.IsEnabled = enableTrainingButton;
+        }
     }
 }
